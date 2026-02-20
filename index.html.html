@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>falling spoon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Source+Sans+3:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --text: #1a1a1a;
+    --muted: #888;
+    --accent: #2b6cb0;
+    --bg: #fff;
+    --max: 640px;
+  }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 300;
+    background: var(--bg);
+    color: var(--text);
+    font-size: 18px;
+    line-height: 1.75;
+    padding: 0 1.5rem;
+  }
+
+  /* ── Header ── */
+  header {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 3rem 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  header h1 a {
+    font-family: 'Lora', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+
+  nav {
+    display: flex;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    font-size: 0.85rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    text-transform: lowercase;
+    transition: color 0.15s;
+  }
+
+  nav a:hover { color: var(--accent); }
+
+  /* ── Divider ── */
+  .divider {
+    max-width: var(--max);
+    margin: 0 auto 3rem;
+    border: none;
+    border-top: 1px solid #e8e8e8;
+  }
+
+  /* ── Posts ── */
+  main {
+    max-width: var(--max);
+    margin: 0 auto;
+  }
+
+  .post {
+    margin-bottom: 3.5rem;
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; } }
+
+  .post-title {
+    font-family: 'Lora', serif;
+    font-size: 1.45rem;
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+  }
+
+  .post-title a {
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .post-title a:hover { color: var(--accent); }
+
+  .post-meta {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    letter-spacing: 0.03em;
+  }
+
+  .post-body p { margin-bottom: 1em; }
+
+  .post-body ul {
+    padding-left: 1.4rem;
+    margin-bottom: 1em;
+  }
+
+  .post-body li { margin-bottom: 0.3em; }
+
+  .read-more {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    font-family: inherit;
+  }
+
+  .read-more:hover { text-decoration: underline; }
+
+  /* ── Footer ── */
+  footer {
+    max-width: var(--max);
+    margin: 4rem auto 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e8e8e8;
+    font-size: 0.8rem;
+    color: var(--muted);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  /* ── Single post view ── */
+  #single-view { display: none; }
+  #single-view.active { display: block; }
+  #main-listing.hidden { display: none; }
+
+  .back-link {
+    display: inline-block;
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-decoration: none;
+    margin-bottom: 2rem;
+    cursor: pointer;
+  }
+
+  .back-link:hover { color: var(--text); }
+
+  .site-tagline {
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 0.25rem;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1><a href="#" onclick="showHome()">falling spoon</a></h1>
+  <p class="site-tagline">simple words, every day</p>
+  <nav>
+    <a href="#" onclick="showHome()">home</a>
+    <a href="#" onclick="showArchive()">archives</a>
+    <a href="#" onclick="showAbout()">about</a>
+  </nav>
+</header>
+<hr class="divider">
+
+<main>
+  <div id="main-listing"></div>
+  <div id="single-view"></div>
+  <div id="about-view" style="display:none">
+    <p>This is a place for simple, honest writing. Published whenever there's something worth sharing.</p>
+    <br>
+    <p>← <a href="#" onclick="showHome()" style="color:var(--accent)">back home</a></p>
+  </div>
+  <div id="archive-view" style="display:none"></div>
+</main>
+
+<footer>
+  <span id="site-name-footer">falling spoon</span>
+  <span id="footer-year"></span>
+</footer>
+
+<script>
+// ── POSTS ──────────────────────────────────────────────
+// To add a new post: copy one of the blocks below and paste
+// it at the TOP of this array (newest first). Change the
+// title, body, and date. Commit the file. Done.
+// ───────────────────────────────────────────────────────
+const SITE = {
+  siteName: 'falling spoon',
+  tagline: 'simple words, every day',
+  posts: [
+    {
+      id: 1,
+      title: 'Hello, world',
+      body: 'Welcome to Falling Spoon. This is where simple words live.\n\nKeep it simple. Write every day.',
+      date: '2026-02-18'
+    }
+  ]
+};
+
+function getData() { return SITE; }
+function saveData() {} // no-op, editing is done directly in the file
+
+// ── Rendering ──
+function formatDate(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function simpleMarkdown(text) {
+  // Very lightweight: paragraph breaks, bullet points
+  let html = '';
+  const paras = text.split(/\n\n+/);
+  paras.forEach(p => {
+    p = p.trim();
+    if (!p) return;
+    if (p.match(/^[*\-] /m)) {
+      const items = p.split('\n').filter(l => l.trim());
+      html += '<ul>' + items.map(l => `<li>${escHtml(l.replace(/^[*\-] /,''))}</li>`).join('') + '</ul>';
+    } else {
+      html += `<p>${escHtml(p).replace(/\n/g,'<br>')}</p>`;
+    }
+  });
+  return html;
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function renderHome() {
+  const d = getData();
+  const posts = [...d.posts].sort((a,b) => new Date(b.date) - new Date(a.date));
+  const el = document.getElementById('main-listing');
+  if (!posts.length) { el.innerHTML = '<p style="color:#aaa">No posts yet.</p>'; return; }
+
+  // Only show the single latest post in full
+  const p = posts[0];
+  el.innerHTML = `<article class="post">
+    <h2 class="post-title">${escHtml(p.title)}</h2>
+    <div class="post-meta">${formatDate(p.date)}</div>
+    <div class="post-body">${simpleMarkdown(p.body)}</div>
+  </article>`;
+}
+
+function showHome() {
+  document.getElementById('main-listing').classList.remove('hidden');
+  document.getElementById('single-view').classList.remove('active');
+  document.getElementById('about-view').style.display = 'none';
+  document.getElementById('archive-view').style.display = 'none';
+  renderHome();
+}
+
+function showPost(id) {
+  const d = getData();
+  const p = d.posts.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('main-listing').classList.add('hidden');
+  document.getElementById('about-view').style.display = 'none';
+  document.getElementById('archive-view').style.display = 'none';
+  const sv = document.getElementById('single-view');
+  sv.classList.add('active');
+  sv.innerHTML = `
+    <a class="back-link" onclick="showHome()">← back</a>
+    <article class="post">
+      <h2 class="post-title">${escHtml(p.title)}</h2>
+      <div class="post-meta">${formatDate(p.date)}</div>
+      <div class="post-body">${simpleMarkdown(p.body)}</div>
+    </article>`;
+}
+
+function showAbout() {
+  document.getElementById('main-listing').classList.add('hidden');
+  document.getElementById('single-view').classList.remove('active');
+  document.getElementById('archive-view').style.display = 'none';
+  document.getElementById('about-view').style.display = 'block';
+}
+
+function showArchive() {
+  const d = getData();
+  const posts = [...d.posts].sort((a,b) => new Date(b.date) - new Date(a.date));
+  document.getElementById('main-listing').classList.add('hidden');
+  document.getElementById('single-view').classList.remove('active');
+  document.getElementById('about-view').style.display = 'none';
+  const av = document.getElementById('archive-view');
+  av.style.display = 'block';
+  av.innerHTML = `<h2 class="post-title" style="margin-bottom:1.5rem">Archives</h2>` +
+    posts.map(p => `<div style="margin-bottom:0.75rem">
+      <a href="#" onclick="showPost(${p.id});return false" style="color:var(--text);text-decoration:none;font-family:'Lora',serif">${escHtml(p.title)}</a>
+      <span style="color:var(--muted);font-size:0.8rem;margin-left:0.75rem">${formatDate(p.date)}</span>
+    </div>`).join('');
+}
+
+// ── Init ──
+document.getElementById('footer-year').textContent = '© ' + new Date().getFullYear();
+const _init = getData();
+document.querySelector('header h1 a').textContent = _init.siteName;
+document.querySelector('.site-tagline').textContent = _init.tagline;
+document.getElementById('site-name-footer').textContent = _init.siteName;
+document.title = _init.siteName;
+renderHome();
+</script>
+</body>
+</html>
