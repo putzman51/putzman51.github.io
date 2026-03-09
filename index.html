@@ -438,7 +438,7 @@ function showZines() {
   hideAll();
   const zv = document.getElementById('zine-view');
   zv.style.display = 'block';
-  zv.innerHTML = `<h2 class="post-title" style="margin-bottom:1.5rem">Zine</h2>` +
+  zv.innerHTML = `<h2 class="post-title" style="margin-bottom:1.5rem">chapbook</h2>` +
     ZINES.map(z => `<div class="zine-item">
       <a href="${z.file}" target="_blank">${z.title}</a>
       <span>${z.description}</span>
