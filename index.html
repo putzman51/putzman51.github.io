@@ -1,458 +1,664 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>falling spoon</title>
-<link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Source+Sans+3:wght@300;400&display=swap" rel="stylesheet">
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>falling spoon</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --text: #1a1a1a;
-    --muted: #888;
-    --accent: #2b6cb0;
-    --bg: #fff;
-    --max: 640px;
-  }
+    :root {
+      --cream: #f4efe4;
+      --cream-deep: #ede7d9;
+      --ink: #2a2520;
+      --ink-light: #5c554d;
+      --ink-faint: #9e958a;
+      --accent: #8b5e3c;
+      --accent-hover: #6d452a;
+      --rule: #d4cbbe;
+      --rule-light: #e2ddd2;
+      --max: 600px;
+    }
 
-  body {
-    font-family: 'Source Sans 3', sans-serif;
-    font-weight: 300;
-    background: var(--bg);
-    color: var(--text);
-    font-size: 18px;
-    line-height: 1.75;
-    padding: 0 1.5rem;
-  }
+    html { scroll-behavior: smooth; }
 
-  /* ── Header ── */
-  header {
-    max-width: var(--max);
-    margin: 0 auto;
-    padding: 3rem 0 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
+    body {
+      font-family: 'Crimson Text', Georgia, serif;
+      background: var(--cream);
+      color: var(--ink);
+      font-size: 19px;
+      line-height: 1.8;
+      padding: 0 1.5rem;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      /* subtle paper grain */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    }
 
-  header h1 a {
-    font-family: 'Lora', serif;
-    font-size: 1.6rem;
-    font-weight: 400;
-    color: var(--text);
-    text-decoration: none;
-    letter-spacing: -0.01em;
-  }
+    ::selection {
+      background: var(--accent);
+      color: var(--cream);
+    }
 
-  nav {
-    display: flex;
-    gap: 1.25rem;
-    flex-wrap: wrap;
-  }
+    /* ── Header ── */
+    header {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 4rem 0 0;
+      text-align: center;
+    }
 
-  nav a {
-    font-size: 0.85rem;
-    color: var(--muted);
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    text-transform: lowercase;
-    transition: color 0.15s;
-  }
+    .site-title {
+      font-family: 'Cormorant Garamond', 'Georgia', serif;
+      font-size: 2.4rem;
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+      text-decoration: none;
+      display: inline-block;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .site-title:hover { color: var(--accent); }
 
-  nav a:hover { color: var(--accent); }
+    .site-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink-faint);
+      letter-spacing: 0.06em;
+      margin-top: 0.4rem;
+    }
 
-  /* ── Divider ── */
-  .divider {
-    max-width: var(--max);
-    margin: 0 auto 3rem;
-    border: none;
-    border-top: 1px solid #e8e8e8;
-  }
+    nav {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
 
-  /* ── Posts ── */
-  main {
-    max-width: var(--max);
-    margin: 0 auto;
-  }
+    nav a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--ink-light);
+      text-decoration: none;
+      letter-spacing: 0.12em;
+      text-transform: lowercase;
+      transition: color 0.25s;
+      cursor: pointer;
+    }
+    nav a:hover, nav a.active { color: var(--accent); }
 
-  .post {
-    margin-bottom: 3.5rem;
-    animation: fadeIn 0.4s ease;
-  }
+    /* ── Ornamental divider ── */
+    .divider {
+      max-width: var(--max);
+      margin: 2rem auto 0;
+      border: none;
+      text-align: center;
+      overflow: visible;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+    .divider-ornament {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--rule);
+      line-height: 1;
+    }
 
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; } }
+    /* ── Main container ── */
+    main {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 2.5rem 0 4rem;
+    }
 
-  .post-title {
-    font-family: 'Lora', serif;
-    font-size: 1.45rem;
-    font-weight: 400;
-    margin-bottom: 0.25rem;
-    line-height: 1.3;
-  }
+    /* ── Season header ── */
+    .season-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      animation: gentleIn 0.8s ease;
+    }
+    .season-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-faint);
+      margin-bottom: 0.4rem;
+    }
+    .season-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.6rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink);
+      margin-bottom: 0.3rem;
+    }
+    .season-dates {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.8rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.06em;
+    }
 
-  .post-title a {
-    color: var(--text);
-    text-decoration: none;
-  }
+    /* ── Post (poem) ── */
+    .poem {
+      margin-bottom: 4rem;
+      animation: gentleIn 0.6s ease both;
+    }
+    .poem:last-child { margin-bottom: 2rem; }
 
-  .post-title a:hover { color: var(--accent); }
+    @keyframes gentleIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
-  .post-meta {
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin-bottom: 1rem;
-    letter-spacing: 0.03em;
-  }
+    .poem-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: var(--ink);
+      line-height: 1.3;
+      margin-bottom: 0.15rem;
+    }
+    .poem-title a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.25s;
+    }
+    .poem-title a:hover { color: var(--accent); }
 
-  .post-body p { margin-bottom: 1em; }
+    .poem-date {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.06em;
+      margin-bottom: 1.5rem;
+    }
 
-  .post-body ul {
-    padding-left: 1.4rem;
-    margin-bottom: 1em;
-  }
+    .poem-body p {
+      margin-bottom: 1.4em;
+    }
+    .poem-body p:last-child { margin-bottom: 0; }
 
-  .post-body li { margin-bottom: 0.3em; }
+    .poem-rule {
+      width: 3rem;
+      height: 1px;
+      background: var(--rule);
+      margin: 0 auto;
+      margin-top: 3rem;
+    }
 
-  .read-more {
-    display: inline-block;
-    margin-top: 0.5rem;
-    font-size: 0.82rem;
-    color: var(--accent);
-    text-decoration: none;
-    letter-spacing: 0.03em;
-    cursor: pointer;
-    border: none;
-    background: none;
-    padding: 0;
-    font-family: inherit;
-  }
+    /* ── Read more link ── */
+    .continue {
+      display: inline-block;
+      margin-top: 1rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.82rem;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 0;
+      transition: color 0.2s;
+    }
+    .continue:hover { color: var(--accent-hover); }
 
-  .read-more:hover { text-decoration: underline; }
+    /* ── Back link ── */
+    .back-link {
+      display: inline-block;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.82rem;
+      color: var(--ink-faint);
+      text-decoration: none;
+      letter-spacing: 0.06em;
+      margin-bottom: 2.5rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--ink); }
 
-  /* ── Footer ── */
-  footer {
-    max-width: var(--max);
-    margin: 4rem auto 3rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid #e8e8e8;
-    font-size: 0.8rem;
-    color: var(--muted);
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
+    /* ── Archive ── */
+    .archive-season {
+      margin-bottom: 2.5rem;
+    }
+    .archive-season-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      font-weight: 300;
+      font-style: italic;
+      color: var(--ink-light);
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid var(--rule-light);
+      margin-bottom: 1rem;
+    }
+    .archive-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.45rem 0;
+      gap: 1rem;
+    }
+    .archive-item a {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.2s;
+      flex: 1;
+    }
+    .archive-item a:hover { color: var(--accent); }
+    .archive-item time {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      color: var(--ink-faint);
+      white-space: nowrap;
+      letter-spacing: 0.04em;
+    }
 
-  /* ── Single post view ── */
-  #single-view { display: none; }
-  #single-view.active { display: block; }
-  #main-listing.hidden { display: none; }
+    /* ── About ── */
+    .about-content {
+      font-size: 1rem;
+      line-height: 2;
+    }
+    .about-content p {
+      margin-bottom: 1.4em;
+    }
+    .about-content p:last-of-type { margin-bottom: 0; }
 
-  .back-link {
-    display: inline-block;
-    font-size: 0.82rem;
-    color: var(--muted);
-    text-decoration: none;
-    margin-bottom: 2rem;
-    cursor: pointer;
-  }
+    /* ── Page titles ── */
+    .page-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: var(--ink);
+      margin-bottom: 2rem;
+      letter-spacing: 0.04em;
+    }
 
-  .back-link:hover { color: var(--text); }
+    /* ── Footer ── */
+    footer {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 2rem 0 3rem;
+      border-top: 1px solid var(--rule-light);
+      text-align: center;
+    }
+    .footer-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.1em;
+    }
+    .footer-note {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem;
+      font-style: italic;
+      color: var(--rule);
+      margin-top: 0.5rem;
+    }
 
-  .site-tagline {
-    font-size: 0.85rem;
-    color: var(--muted);
-    font-style: italic;
-    margin-top: 0.25rem;
-  }
+    /* ── Views (hidden by default) ── */
+    .view { display: none; }
+    .view.active { display: block; animation: gentleIn 0.5s ease; }
 
-  /* ── chapbook ── */
-  .zine-item {
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #f2f2f2;
-  }
-
-  .zine-item a {
-    font-family: 'Lora', serif;
-    font-size: 1.1rem;
-    color: var(--text);
-    text-decoration: none;
-  }
-
-  .zine-item a:hover { color: var(--accent); }
-
-  .zine-item span {
-    display: block;
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin-top: 0.2rem;
-  }
-</style>
+    /* ── Responsive ── */
+    @media (max-width: 540px) {
+      .site-title { font-size: 2rem; }
+      nav { gap: 1.4rem; }
+      .poem-title { font-size: 1.3rem; }
+      .archive-item { flex-direction: column; gap: 0.15rem; }
+    }
+  </style>
 </head>
 <body>
 
-<header>
-  <h1><a href="#" onclick="showHome()">falling spoon</a></h1>
-  <p class="site-tagline">slow mornings & calm words</p>
-  <nav>
-    <a href="#" onclick="showHome()">home</a>
-    <a href="#" onclick="showArchive()">archives</a>
-    <a href="#" onclick="showZines()">chapbook</a>
-    <a href="#" onclick="showAbout()">about</a>
-  </nav>
-</header>
-<hr class="divider">
+  <header>
+    <a class="site-title" onclick="navigate('home')">falling spoon</a>
+    <p class="site-tagline">poems about pausing</p>
+    <nav id="main-nav">
+      <a onclick="navigate('home')" data-view="home">home</a>
+      <a onclick="navigate('archive')" data-view="archive">archives</a>
+      <a onclick="navigate('about')" data-view="about">about</a>
+    </nav>
+  </header>
 
-<main>
-  <div id="main-listing"></div>
-  <div id="single-view"></div>
-  <div id="about-view" style="display:none">
-    <p>My quiet contribution to a noisy place.</p>
-    <br>
-    <p>However you hear, read, or understand these writings I only ask that you do so with a spirit of love + care for yourself and others.</p>
-    <br>
-    <p>These poems + thoughts are open source. Please enjoy, print + share without restrictions.</p>
-    <br>
-    <p>Should you find yourself inspired, instead of reaching out to me, write a little something for you and I'll know.</p>
-    <br>
-    <p>Keep a pen handy. Have lots of paper around. Extras. Of both. Everywhere.</p>
-    <br>
-    <p>Thank you for joining me in slow mornings and an even slower enjoyment of the written word.</p>
-    <br>
-    <p>← <a href="#" onclick="showHome()" style="color:var(--accent)">back home</a></p>
-  </div>
-  <div id="archive-view" style="display:none"></div>
-  <div id="zine-view" style="display:none"></div>
-</main>
+  <div class="divider"><span class="divider-ornament">·</span></div>
 
-<footer>
-  <span id="site-name-footer">falling spoon</span>
-  <span id="footer-year"></span>
-</footer>
+  <main>
+    <!-- HOME -->
+    <div id="view-home" class="view active"></div>
+
+    <!-- SINGLE POEM -->
+    <div id="view-single" class="view"></div>
+
+    <!-- ARCHIVE -->
+    <div id="view-archive" class="view"></div>
+
+    <!-- ABOUT -->
+    <div id="view-about" class="view">
+      <h2 class="page-heading">about</h2>
+      <div class="about-content">
+        <p>My quiet contribution to a noisy place.</p>
+        <p>However you hear, read, or understand these writings I only ask that you do so with a spirit of love + care for yourself and others.</p>
+        <p>These poems + thoughts are open source. Please enjoy, print + share without restrictions.</p>
+        <p>Keep a pen handy. Have lots of paper around. Extras. Of both. Everywhere.</p>
+        <p>Thank you for joining me in slow mornings and an even slower enjoyment of the written word.</p>
+        <p style="margin-top: 2rem;"><a class="back-link" onclick="navigate('home')">← home</a></p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-text">falling spoon · <span id="footer-year"></span></div>
+    <div class="footer-note">poems about pausing</div>
+  </footer>
 
 <script>
-// ── POSTS ──────────────────────────────────────────────
-// To add a new post: copy one of the blocks below and paste
-// it at the TOP of this array (newest first). Change the
-// title, body, and date. Commit the file. Done.
-// ───────────────────────────────────────────────────────
-const SITE = {
-  siteName: 'falling spoon',
-  tagline: 'slow mornings & calm words',
-  posts: [
-    {
-      id: 14,
-      title: 'steady through breath',
-      body: 'almost afraid to engage it\neven though you know it works\nit\'s waiting, it\'s placing it\nright behind your path\n\nreaching back a little more\nknowing it\'s there\nslow to setup the brace\nslow to start the swing\n\nmoving in, smoothing in\nletting it happen as you know\nit should and\nyou watch it as you live it\n\nthere\'s a pop\nwhen it\'s right.\nyou know it happened,\nand it\'s not pretend.\n\nexplosion directed precisely\npracticed and patient\nit\'s okay what happens\nbecause I can watch it.\n\nthe flight is\nnot the freedom.\nThe freedom is a steady\nthroughline of you.',
-      date: '2026-03-08T12:00:00'
-    },
-    {
-      id: 13,
-      title: 'the point is (me): occupied, reflected',
-      body: 'quick trip to vertically\npositioned consciousness\nup, up, way up. Take myself\nto a star, and keep going.\n\nI\'m there. It\'s quiet. Dark.\n\nan ocean seems tiny up here,\nthe expanse filled with all\nthe thoughts that were ever\nreleased.\n\nit\'s dark, but I can see my hand.\n\nI stay long enough to cycle through\na breath or two, inside my soul\n\nthe vacuum pulls at me, pushes,\nwaits for me to make a move\na wiggle in sand,\n\nI\'m a leaf riding the top of a river,\nin a celestine carnival.\n\nI come up to listen.\nI come up to think.\n\nI float away knowing,\nthe overview.',
-      date: '2026-03-07T12:00:00'
-    },
-    {
-      id: 12,
-      title: 'every city is mine',
-      body: 'gummed up pavement\npushing itself all the way out,\nuntil the strip malls start and the\nfarmland sits tended nearby.\n\nthe corridor connections\nbusy between each dot,\ntraffic tracing gentle lines\ntranslating to its true signature.\n\nit\'s the smell; everywhere.\nI own it.\nThe way it\'s crisp or verdant\nor still yesterday\'s trash, that\'s me.\n\nthe book stapled, says "atlas",\nfolded and frayed, taking orders\nas much as giving them. making\nit fun to take another new turn.\n\nthe sky is new here.\nthe light, changed.\n\nwaking up without knowing north\nfeels better than I ever thought it would.',
-      date: '2026-03-06T12:00:00'
-    },
-    {
-      id: 11,
-      title: 'tempered perihelion',
-      body: 'there\'s a time each day\nwhen golden orange hues\nstreak through a vertically bound sea;\nbeams held in suspended tension.\n\nwith so many others around,\npretending to look elsewhere,\nwhile you do too.\n\nit doesn\'t feel crowded now.\n\nhiding together\nwhile the planets keep pulling\nthemselves into\nposition.',
-      date: '2026-03-05T12:00:00'
-    },
-    {
-      id: 10,
-      title: 'hit',
-      body: 'i. (injury)\n\nthere\'s a feeling –\na concussion,\nwhere it feels like a roll of pennies just exists inside your face,\nand it\'s spreading around your head,\nand everything tastes like pennies.\nand it feels like the pennies are being pushed into your brain,\nand your eyes,\nand the whole thing is disorienting,\nbecause you\'re disoriented,\nand eventually you wake up and are told you cannot go back to sleep.\n\nii. (flower)\n\nthe rose; silently climbing.\npatiently grows,\nits scent, up close,\nfelt immediately in the frontal lobe.\n\na pillow of petals,\nstuffed suspiciously so,\nwanting to show off\neach little roseleaf.\n\nblooms becoming aware\ntogether and\ntangled around trellis they\nsmell like you think the vine tastes.\n\niii. (kiss)\n\nstart inching\nfrom miles away.\n\nsly squinting and\nresisting until the last second.\n\nthe pressure immeasurable,\npushing petal to petal.',
-      date: '2026-03-03T12:00:00'
-    },
-    {
-      id: 9,
-      title: 'understanding daylight through a dream',
-      body: 'the sun pushes effortlessly,\nthe trees block what they can.\n\nlight settles\nintently &\nsplays itself on leaves,\nmoving them slightly.\n\neach cloud i see around,\nbases its dreams on me.\n\ndrifting into position,\nmaking sure i see,\n\nin a radiant garden,\nsunshine glowing gold,\nlush earth grasping my heart.\nsmiles are shared;\n\nmy dreams chase,\neach cloud i see around.',
-      date: '2026-03-01T12:00:00'
-    },
-    {
-      id: 8,
-      title: 'sun-based sentience',
-      body: 'the fibers of the rug outside\nhave collected dirt.\n\nSettling and\nsoftening.\n\nthe sun has soaked itself especially\nin the upper right corner,\nnext to her spot, she sips\nchai tea and daydreams about\ndances that don\'t stop and jokes that build worlds around them.\nher tiny sigh slips through,\ndiscovering a moment of rest\nin the slightly faded corner of the rug.\n\nyou\'d have to get low\nto really see the dirt.\n\nthe sun sits angled,\nit only comes in a little,\narriving through windows of branches\nsubmerging her space in its light.',
-      date: '2026-02-28T12:00:00'
-    },
-    {
-      id: 7,
-      title: 'of alignment',
-      body: 'the sky ties\ntogether all horizons,\n\nthe land boundaries\nadjust for daylight.',
-      date: '2026-02-26T12:00:00'
-    },
-    {
-      id: 6,
-      title: 'wind as it would be',
-      body: 'i.\n\nit fills\nspace that needs it\ndue to\npressure systems.\n\nalways escaping.\nhowling.\n\nraging.\n\nwinding away, wispy\nmaking leaves flutter\nsymphonically on the trees.\n\n\nii.\n\nsometimes I place myself\nall the way out in space.\n\nwind doesn\'t feel the same up there,\nand it\'s quiet.\n\nno space suit. Just a safe soul somehow,\nfloating\n\nand I can\'t really even see a star or a planet,\nall so far away that I am surrounded\n\nby the dark.\n\nthe brightest dark.\n\nand this is how the wind would be,\nstaying steadily up above,\npushing all the way to space so\n\neverything shrinks down a bit,\nand the distance wants to fold on itself.\n\ncollapsed.\n\n\niii.\n\ngentle pushes\nto continue to chase, and cheer, and flee\nthe scene\n\nwhen I\'m up there. In space.\njust being an imaginary space man\n\nI think,\na little wind,\n\nwould\nbe nice.',
-      date: '2026-02-25T12:00:00'
-    },
-    {
-      id: 5,
-      title: 'yesterday today',
-      body: 'walking across the grass\nshuffling, slumped\na sharp breeze cut through\nmy cotton shirt.\n\nit\'s always today,\nthe way it seems anyway,\n\nits just. another.',
-      date: '2026-02-24T12:00:00'
-    },
-    {
-      id: 4,
-      title: 'slipstreams surround me',
-      body: 'there\'s this whole, elucidated\nlightness (thing)\n\nafter taking a sip of Hi-C\nthat is poured into a\n\nfragile,\n\nimpossibly weightless\npicnic cup,\n\nfrom a\none point six-six liter can.\n\nthe homeroom mom fills it,\nand the stream seems precarious,\n\nas the weight of the fluid\nis almost tipping the cup over,\n\nespecially that first pour.\n\nbefore they were filled\nwe held them loosely between\nmiddle finger + thumb in one hand\n\nso careful not to break it\nbut flicking it upward to watch it flip\n\nas if that was the game, and\n\nit was, but we needed it to stay\nintact if\n\nwe wanted it full, and,\nthere\'s this whole\n"lightness"\nthing again. which feels heavy.\n\ntold not to flick it, we did anyway\nbecause we need to feel as light as the cup\n\nso I look around,\nand pretend to, giggling, because\n\nI need to know that gravity doesn\'t apply here\nand I don\'t want to break it,\n\neyes widen while we almost make each other\nlaugh.',
-      date: '2026-02-22T12:00:00'
-    },
-    {
-      id: 3,
-      title: 'time taking itself out of the equation',
-      body: 'crumbling the way\nsand slips through hands &\n\nheartbeats make melodic\nmoments.\n\nthe fine lines we face,\nprayers get answered &\n\nour dreams are carried in\nteardrops.\n\nexploding when they hit &\nnobody ever sees\n\nthe dreams evaporate.\nthey see them soften.\n\na sunrise settles\nin fragments, fleeing &\n\ncool water touches the\nheated grip of grace to\n\ntake healing seriously,\nonce again &\n\ni\'m as certain of this\nas i am of drifting &\n\ndropping into\nthe shimmering\n\nsurface of every sea\nI can name today.',
-      date: '2026-02-21T12:00:00'
-    },
-    {
-      id: 2,
-      title: 'capturing the (creative) burst',
-      body: 'moments come, where we know\nthe burst is clear,\nscreaming at us from within our field\nwe stand in its way.\n\nThe clarity must be caught.\nThe conditions are not exactly right,\nwhich is why the muse appears so clear.\n\nSo we fight. Ourselves. Our hunger. Our excuse.\n\nWe fight the nuance of every obstacle. being tired, half asleep\nwandering if we will remember\nand maybe we will. But,\nWhat if this needs to be caught now.\n\nWhat if I MUST arise and lift the pen and\nscribble the weirdest thing down,\nto instigate truth later?\n\nWhat if I don\'t…like a lost thought…\nLike an opportunity casually passing us by…\n\nSo I fight. I drift off, but I wake up.\nI push the floor against my bare feet, cold\nneeding to run the thousand miles to my desk\nand find the pen, and push the paper for just long enough\nto know I won this time.\n\nA huge win. Victory in the war of art.\nIt\'s a little thought, and an even tinier molecule in\nthe scope of life, but I caught it. This time.\n\nTomorrow we live to fight another day.\nCreate.',
-      date: '2026-02-20T12:00:00'
-    },
-    {
-      id: 1,
-      title: 'sealed in sand',
-      body: 'dry, dusty moonlit desert\nkeeping clear skies,\n& each star stays lit for\nlong enough to find itself, reaching for\nthe tall range of torn earth,\nshowing our true size.\n\nSonoran secrets\nsit calmly against the\nmoonrise behind,\nhalo of white gold glows for you.',
-      date: '2026-02-18T12:00:00'
-    }
-  ]
-};
-
-// ── ZINES ──────────────────────────────────────────────
-// To add a new chapbook: copy a block and paste at the TOP.
-// Upload the matching HTML file to your GitHub repo.
-// ───────────────────────────────────────────────────────
-const ZINES = [
+// ═══════════════════════════════════════════════════════
+// SEASONS — Each writing season gets a name and range.
+// The newest season should be listed FIRST.
+// ═══════════════════════════════════════════════════════
+const SEASONS = [
   {
-    title: 'sliding in the light.',
-    description: 'a small collection of twelve poems.',
-    file: 'zine-march-2026.html'
+    id: 2,
+    label: 'Season II',
+    title: 'see the trees sway',
+    startDate: '2026-03-12',
+    endDate: null,            // null = ongoing
+  },
+  {
+    id: 1,
+    label: 'Season I',
+    title: 'sliding in the light',
+    startDate: '2026-02-18',
+    endDate: '2026-03-08',
   }
 ];
 
-function getData() { return SITE; }
-function saveData() {} // no-op, editing is done directly in the file
+// ═══════════════════════════════════════════════════════
+// POEMS — Newest first. Each poem belongs to a season.
+// To add a new poem: copy a block, paste at the TOP,
+// give it the next id, set the correct seasonId.
+// ═══════════════════════════════════════════════════════
+const POEMS = [
+  {
+    id: 14, seasonId: 1,
+    title: 'steady through breath',
+    body: 'almost afraid to engage it\neven though you know it works\nit\'s waiting, it\'s placing it\nright behind your path\n\nreaching back a little more\nknowing it\'s there\nslow to setup the brace\nslow to start the swing\n\nmoving in, smoothing in\nletting it happen as you know\nit should and\nyou watch it as you live it\n\nthere\'s a pop\nwhen it\'s right.\nyou know it happened,\nand it\'s not pretend.\n\nexplosion directed precisely\npracticed and patient\nit\'s okay what happens\nbecause I can watch it.\n\nthe flight is\nnot the freedom.\nThe freedom is a steady\nthroughline of you.',
+    date: '2026-03-08T12:00:00'
+  },
+  {
+    id: 13, seasonId: 1,
+    title: 'the point is (me): occupied, reflected',
+    body: 'quick trip to vertically\npositioned consciousness\nup, up, way up. Take myself\nto a star, and keep going.\n\nI\'m there. It\'s quiet. Dark.\n\nan ocean seems tiny up here,\nthe expanse filled with all\nthe thoughts that were ever\nreleased.\n\nit\'s dark, but I can see my hand.\n\nI stay long enough to cycle through\na breath or two, inside my soul\n\nthe vacuum pulls at me, pushes,\nwaits for me to make a move\na wiggle in sand,\n\nI\'m a leaf riding the top of a river,\nin a celestine carnival.\n\nI come up to listen.\nI come up to think.\n\nI float away knowing,\nthe overview.',
+    date: '2026-03-07T12:00:00'
+  },
+  {
+    id: 12, seasonId: 1,
+    title: 'every city is mine',
+    body: 'gummed up pavement\npushing itself all the way out,\nuntil the strip malls start and the\nfarmland sits tended nearby.\n\nthe corridor connections\nbusy between each dot,\ntraffic tracing gentle lines\ntranslating to its true signature.\n\nit\'s the smell; everywhere.\nI own it.\nThe way it\'s crisp or verdant\nor still yesterday\'s trash, that\'s me.\n\nthe book stapled, says "atlas",\nfolded and frayed, taking orders\nas much as giving them. making\nit fun to take another new turn.\n\nthe sky is new here.\nthe light, changed.\n\nwaking up without knowing north\nfeels better than I ever thought it would.',
+    date: '2026-03-06T12:00:00'
+  },
+  {
+    id: 11, seasonId: 1,
+    title: 'tempered perihelion',
+    body: 'there\'s a time each day\nwhen golden orange hues\nstreak through a vertically bound sea;\nbeams held in suspended tension.\n\nwith so many others around,\npretending to look elsewhere,\nwhile you do too.\n\nit doesn\'t feel crowded now.\n\nhiding together\nwhile the planets keep pulling\nthemselves into\nposition.',
+    date: '2026-03-05T12:00:00'
+  },
+  {
+    id: 10, seasonId: 1,
+    title: 'hit',
+    body: 'i. (injury)\n\nthere\'s a feeling –\na concussion,\nwhere it feels like a roll of pennies just exists inside your face,\nand it\'s spreading around your head,\nand everything tastes like pennies.\nand it feels like the pennies are being pushed into your brain,\nand your eyes,\nand the whole thing is disorienting,\nbecause you\'re disoriented,\nand eventually you wake up and are told you cannot go back to sleep.\n\nii. (flower)\n\nthe rose; silently climbing.\npatiently grows,\nits scent, up close,\nfelt immediately in the frontal lobe.\n\na pillow of petals,\nstuffed suspiciously so,\nwanting to show off\neach little roseleaf.\n\nblooms becoming aware\ntogether and\ntangled around trellis they\nsmell like you think the vine tastes.\n\niii. (kiss)\n\nstart inching\nfrom miles away.\n\nsly squinting and\nresisting until the last second.\n\nthe pressure immeasurable,\npushing petal to petal.',
+    date: '2026-03-03T12:00:00'
+  },
+  {
+    id: 9, seasonId: 1,
+    title: 'understanding daylight through a dream',
+    body: 'the sun pushes effortlessly,\nthe trees block what they can.\n\nlight settles\nintently &\nsplays itself on leaves,\nmoving them slightly.\n\neach cloud i see around,\nbases its dreams on me.\n\ndrifting into position,\nmaking sure i see,\n\nin a radiant garden,\nsunshine glowing gold,\nlush earth grasping my heart.\nsmiles are shared;\n\nmy dreams chase,\neach cloud i see around.',
+    date: '2026-03-01T12:00:00'
+  },
+  {
+    id: 8, seasonId: 1,
+    title: 'sun-based sentience',
+    body: 'the fibers of the rug outside\nhave collected dirt.\n\nSettling and\nsoftening.\n\nthe sun has soaked itself especially\nin the upper right corner,\nnext to her spot, she sips\nchai tea and daydreams about\ndances that don\'t stop and jokes that build worlds around them.\nher tiny sigh slips through,\ndiscovering a moment of rest\nin the slightly faded corner of the rug.\n\nyou\'d have to get low\nto really see the dirt.\n\nthe sun sits angled,\nit only comes in a little,\narriving through windows of branches\nsubmerging her space in its light.',
+    date: '2026-02-28T12:00:00'
+  },
+  {
+    id: 7, seasonId: 1,
+    title: 'of alignment',
+    body: 'the sky ties\ntogether all horizons,\n\nthe land boundaries\nadjust for daylight.',
+    date: '2026-02-26T12:00:00'
+  },
+  {
+    id: 6, seasonId: 1,
+    title: 'wind as it would be',
+    body: 'i.\n\nit fills\nspace that needs it\ndue to\npressure systems.\n\nalways escaping.\nhowling.\n\nraging.\n\nwinding away, wispy\nmaking leaves flutter\nsymphonically on the trees.\n\n\nii.\n\nsometimes I place myself\nall the way out in space.\n\nwind doesn\'t feel the same up there,\nand it\'s quiet.\n\nno space suit. Just a safe soul somehow,\nfloating\n\nand I can\'t really even see a star or a planet,\nall so far away that I am surrounded\n\nby the dark.\n\nthe brightest dark.\n\nand this is how the wind would be,\nstaying steadily up above,\npushing all the way to space so\n\neverything shrinks down a bit,\nand the distance wants to fold on itself.\n\ncollapsed.\n\n\niii.\n\ngentle pushes\nto continue to chase, and cheer, and flee\nthe scene\n\nwhen I\'m up there. In space.\njust being an imaginary space man\n\nI think,\na little wind,\n\nwould\nbe nice.',
+    date: '2026-02-25T12:00:00'
+  },
+  {
+    id: 5, seasonId: 1,
+    title: 'yesterday today',
+    body: 'walking across the grass\nshuffling, slumped\na sharp breeze cut through\nmy cotton shirt.\n\nit\'s always today,\nthe way it seems anyway,\n\nits just. another.',
+    date: '2026-02-24T12:00:00'
+  },
+  {
+    id: 4, seasonId: 1,
+    title: 'slipstreams surround me',
+    body: 'there\'s this whole, elucidated\nlightness (thing)\n\nafter taking a sip of Hi-C\nthat is poured into a\n\nfragile,\n\nimpossibly weightless\npicnic cup,\n\nfrom a\none point six-six liter can.\n\nthe homeroom mom fills it,\nand the stream seems precarious,\n\nas the weight of the fluid\nis almost tipping the cup over,\n\nespecially that first pour.\n\nbefore they were filled\nwe held them loosely between\nmiddle finger + thumb in one hand\n\nso careful not to break it\nbut flicking it upward to watch it flip\n\nas if that was the game, and\n\nit was, but we needed it to stay\nintact if\n\nwe wanted it full, and,\nthere\'s this whole\n"lightness"\nthing again. which feels heavy.\n\ntold not to flick it, we did anyway\nbecause we need to feel as light as the cup\n\nso I look around,\nand pretend to, giggling, because\n\nI need to know that gravity doesn\'t apply here\nand I don\'t want to break it,\n\neyes widen while we almost make each other\nlaugh.',
+    date: '2026-02-22T12:00:00'
+  },
+];
 
-// ── Rendering ──
+
+
+// ── Utilities ──────────────────────────────────────────
+
+function esc(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
 function formatDate(iso) {
   const d = new Date(iso);
   return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
-function simpleMarkdown(text) {
+function shortDate(iso) {
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+}
+
+function renderPoem(text) {
   let html = '';
-  const paras = text.split(/\n\n+/);
-  paras.forEach(p => {
-    p = p.trim();
-    if (!p) return;
-    if (p.match(/^[*\-] /m)) {
-      const items = p.split('\n').filter(l => l.trim());
-      html += '<ul>' + items.map(l => `<li>${escHtml(l.replace(/^[*\-] /,''))}</li>`).join('') + '</ul>';
-    } else {
-      html += `<p>${escHtml(p).replace(/\n/g,'<br>')}</p>`;
-    }
+  const stanzas = text.split(/\n\n+/);
+  stanzas.forEach(s => {
+    s = s.trim();
+    if (!s) return;
+    html += '<p>' + esc(s).replace(/\n/g, '<br>') + '</p>';
   });
   return html;
 }
 
-function escHtml(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function getSeasonForPoem(poem) {
+  return SEASONS.find(s => s.id === poem.seasonId);
 }
 
-function hideAll() {
-  document.getElementById('main-listing').classList.add('hidden');
-  document.getElementById('single-view').classList.remove('active');
-  document.getElementById('about-view').style.display = 'none';
-  document.getElementById('archive-view').style.display = 'none';
-  document.getElementById('zine-view').style.display = 'none';
+function getPoemsForSeason(seasonId) {
+  return POEMS
+    .filter(p => p.seasonId === seasonId)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
 }
+
+
+// ── Navigation ─────────────────────────────────────────
+
+let currentView = 'home';
+
+function navigate(view, data) {
+  currentView = view;
+
+  // hide all views
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+
+  // update nav
+  document.querySelectorAll('#main-nav a').forEach(a => {
+    a.classList.toggle('active', a.dataset.view === view);
+  });
+
+  // show requested view
+  const el = document.getElementById('view-' + view);
+  if (view === 'single') {
+    document.getElementById('view-single').classList.add('active');
+  } else if (el) {
+    el.classList.add('active');
+  }
+
+  // render
+  switch (view) {
+    case 'home': renderHome(); break;
+    case 'single': renderSingle(data); break;
+    case 'archive': renderArchive(); break;
+    case 'about': break; // static
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+
+// ── Home: latest poem with season context ──────────────
 
 function renderHome() {
-  const d = getData();
-  const posts = [...d.posts].sort((a,b) => new Date(b.date) - new Date(a.date));
-  const el = document.getElementById('main-listing');
-  if (!posts.length) { el.innerHTML = '<p style="color:#aaa">No posts yet.</p>'; return; }
-  const p = posts[0];
-  el.innerHTML = `<article class="post">
-    <h2 class="post-title">${escHtml(p.title)}</h2>
-    <div class="post-meta">${formatDate(p.date)}</div>
-    <div class="post-body">${simpleMarkdown(p.body)}</div>
-  </article>`;
+  const el = document.getElementById('view-home');
+  const currentSeason = SEASONS[0];
+  const poems = getPoemsForSeason(currentSeason.id);
+  let html = '';
+
+  html += renderSeasonBanner(currentSeason);
+
+  if (poems.length > 0) {
+    html += renderPoemCard(poems[0], true);
+  } else {
+    // No poems in current season yet — show latest from previous
+    const prevSeason = SEASONS[1];
+    if (prevSeason) {
+      const prevPoems = getPoemsForSeason(prevSeason.id);
+      if (prevPoems.length > 0) {
+        html += `<div style="text-align:center;margin-bottom:2rem;">
+          <span class="season-label">${esc(prevSeason.label)} · ${esc(prevSeason.title)}</span>
+        </div>`;
+        html += renderPoemCard(prevPoems[0], true);
+      }
+    }
+  }
+
+  el.innerHTML = html;
 }
 
-function showHome() {
-  hideAll();
-  document.getElementById('main-listing').classList.remove('hidden');
-  renderHome();
+function renderSeasonBanner(season) {
+  const start = shortDate(season.startDate);
+  const end = season.endDate ? shortDate(season.endDate) : 'present';
+  return `
+    <div class="season-header">
+      <div class="season-label">${esc(season.label)}</div>
+      <div class="season-title">${esc(season.title)}</div>
+      <div class="season-dates">${start} – ${end}</div>
+    </div>`;
 }
 
-function showPost(id) {
-  const d = getData();
-  const p = d.posts.find(x => x.id === id);
-  if (!p) return;
-  hideAll();
-  const sv = document.getElementById('single-view');
-  sv.classList.add('active');
-  sv.innerHTML = `
-    <a class="back-link" onclick="showHome()">← back</a>
-    <article class="post">
-      <h2 class="post-title">${escHtml(p.title)}</h2>
-      <div class="post-meta">${formatDate(p.date)}</div>
-      <div class="post-body">${simpleMarkdown(p.body)}</div>
+function renderPoemCard(poem, full) {
+  return `
+    <article class="poem">
+      <h2 class="poem-title"><a onclick="navigate('single', ${poem.id})">${esc(poem.title)}</a></h2>
+      <div class="poem-date">${formatDate(poem.date)}</div>
+      <div class="poem-body">${renderPoem(poem.body)}</div>
+      <div class="poem-rule"></div>
     </article>`;
 }
 
-function showAbout() {
-  hideAll();
-  document.getElementById('about-view').style.display = 'block';
+
+// ── Single poem view ───────────────────────────────────
+
+function renderSingle(id) {
+  const poem = POEMS.find(p => p.id === id);
+  if (!poem) return;
+  const season = getSeasonForPoem(poem);
+  const el = document.getElementById('view-single');
+
+  // Find prev/next within same season
+  const seasonPoems = getPoemsForSeason(season.id);
+  const idx = seasonPoems.findIndex(p => p.id === id);
+  const prev = idx < seasonPoems.length - 1 ? seasonPoems[idx + 1] : null;
+  const next = idx > 0 ? seasonPoems[idx - 1] : null;
+
+  el.innerHTML = `
+    <a class="back-link" onclick="navigate('home')">← home</a>
+    <div style="text-align:center;margin-bottom:0.5rem;">
+      <span class="season-label">${esc(season.label)} · ${esc(season.title)}</span>
+    </div>
+    <article class="poem">
+      <h2 class="poem-title" style="text-align:center;">${esc(poem.title)}</h2>
+      <div class="poem-date" style="text-align:center;">${formatDate(poem.date)}</div>
+      <div class="poem-body">${renderPoem(poem.body)}</div>
+      <div class="poem-rule"></div>
+    </article>
+    <div style="display:flex;justify-content:space-between;margin-top:1rem;font-family:'Cormorant Garamond',serif;font-size:0.85rem;">
+      ${prev ? `<a class="back-link" onclick="navigate('single',${prev.id})" style="margin-bottom:0;">← ${esc(prev.title)}</a>` : '<span></span>'}
+      ${next ? `<a class="back-link" onclick="navigate('single',${next.id})" style="margin-bottom:0;">${esc(next.title)} →</a>` : '<span></span>'}
+    </div>`;
 }
 
-function showArchive() {
-  const d = getData();
-  const posts = [...d.posts].sort((a,b) => new Date(b.date) - new Date(a.date));
-  hideAll();
-  const av = document.getElementById('archive-view');
-  av.style.display = 'block';
-  av.innerHTML = `<h2 class="post-title" style="margin-bottom:1.5rem">Archives</h2>` +
-    posts.map(p => `<div style="margin-bottom:0.75rem">
-      <a href="#" onclick="showPost(${p.id});return false" style="color:var(--text);text-decoration:none;font-family:'Lora',serif">${escHtml(p.title)}</a>
-      <span style="color:var(--muted);font-size:0.8rem;margin-left:0.75rem">${formatDate(p.date)}</span>
-    </div>`).join('');
+
+// ── Archive ────────────────────────────────────────────
+
+function renderArchive() {
+  const el = document.getElementById('view-archive');
+  let html = '<h2 class="page-heading">archives</h2>';
+
+  SEASONS.forEach(season => {
+    const poems = getPoemsForSeason(season.id);
+    html += `
+      <div class="archive-season">
+        <div class="archive-season-title">${esc(season.label)} — ${esc(season.title)}</div>`;
+    if (poems.length === 0) {
+      html += `<div style="color:var(--ink-faint);font-style:italic;font-size:0.9rem;padding:0.5rem 0;">poems arriving soon&hellip;</div>`;
+    }
+    poems.forEach(p => {
+      html += `
+        <div class="archive-item">
+          <a onclick="navigate('single',${p.id})">${esc(p.title)}</a>
+          <time>${shortDate(p.date)}</time>
+        </div>`;
+    });
+    html += '</div>';
+  });
+
+  el.innerHTML = html;
 }
 
-function showZines() {
-  hideAll();
-  const zv = document.getElementById('zine-view');
-  zv.style.display = 'block';
-  zv.innerHTML = `<h2 class="post-title" style="margin-bottom:1.5rem">chapbook</h2>` +
-    ZINES.map(z => `<div class="zine-item">
-      <a href="${z.file}" target="_blank">${z.title}</a>
-      <span>${z.description}</span>
-    </div>`).join('');
-}
 
-// ── Init ──
+// ── Init ───────────────────────────────────────────────
 document.getElementById('footer-year').textContent = '© ' + new Date().getFullYear();
-const _init = getData();
-document.querySelector('header h1 a').textContent = _init.siteName;
-document.querySelector('.site-tagline').textContent = _init.tagline;
-document.getElementById('site-name-footer').textContent = _init.siteName;
-document.title = _init.siteName;
-renderHome();
+navigate('home');
+
 </script>
 </body>
 </html>
