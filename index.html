@@ -6,399 +6,89 @@
   <title>falling spoon</title>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Crimson+Text:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --cream: #f4efe4;
-      --cream-deep: #ede7d9;
-      --ink: #2a2520;
-      --ink-light: #5c554d;
-      --ink-faint: #9e958a;
-      --accent: #8b5e3c;
-      --accent-hover: #6d452a;
-      --rule: #d4cbbe;
-      --rule-light: #e2ddd2;
-      --max: 600px;
+      --paper: #f6f4ef;   /* dull white, just a breath of paper */
+      --ink: #2b2825;
+      --ink-soft: #8a847c;
+      --max: 560px;
     }
 
-    html { scroll-behavior: smooth; }
+    html, body { background: var(--paper); }
 
     body {
       font-family: 'Crimson Text', Georgia, serif;
-      background: var(--cream);
       color: var(--ink);
       font-size: 19px;
       line-height: 1.8;
       padding: 0 1.5rem;
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
-      /* subtle paper grain */
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      /* barely-there grain */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.018'/%3E%3C/svg%3E");
     }
 
-    ::selection {
-      background: var(--accent);
-      color: var(--cream);
-    }
+    ::selection { background: #e4dfd5; }
 
-    /* ── Header ── */
-    header {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 4rem 0 0;
-      text-align: center;
-    }
-
-    .site-title {
-      font-family: 'Cormorant Garamond', 'Georgia', serif;
-      font-size: 2.4rem;
-      font-weight: 300;
-      letter-spacing: 0.08em;
-      color: var(--ink);
-      text-decoration: none;
-      display: inline-block;
-      cursor: pointer;
-      transition: color 0.3s;
-    }
-    .site-title:hover { color: var(--accent); }
-
-    .site-tagline {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.95rem;
-      font-weight: 300;
-      font-style: italic;
-      color: var(--ink-faint);
-      letter-spacing: 0.06em;
-      margin-top: 0.4rem;
-    }
-
-    nav {
-      margin-top: 2rem;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
-    }
-
-    nav a {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.85rem;
-      font-weight: 400;
-      color: var(--ink-light);
-      text-decoration: none;
-      letter-spacing: 0.12em;
-      text-transform: lowercase;
-      transition: color 0.25s;
-      cursor: pointer;
-    }
-    nav a:hover, nav a.active { color: var(--accent); }
-
-    /* ── Ornamental divider ── */
-    .divider {
-      max-width: var(--max);
-      margin: 2rem auto 0;
-      border: none;
-      text-align: center;
-      overflow: visible;
-      height: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-    }
-    .divider::before,
-    .divider::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--rule);
-    }
-    .divider-ornament {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1rem;
-      color: var(--rule);
-      line-height: 1;
-    }
-
-    /* ── Main container ── */
     main {
       max-width: var(--max);
       margin: 0 auto;
-      padding: 2.5rem 0 4rem;
+      padding-top: 2.5in;
+      padding-bottom: 2in;
     }
 
-    /* ── Season header ── */
-    .season-header {
-      text-align: center;
-      margin-bottom: 3rem;
-      animation: gentleIn 0.8s ease;
-    }
-    .season-label {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.78rem;
-      font-weight: 400;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink-faint);
-      margin-bottom: 0.4rem;
-    }
-    .season-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.6rem;
-      font-weight: 300;
-      font-style: italic;
-      color: var(--ink);
-      margin-bottom: 0.3rem;
-    }
-    .season-dates {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.8rem;
-      color: var(--ink-faint);
-      letter-spacing: 0.06em;
-    }
-
-    /* ── Post (poem) ── */
-    .poem {
-      margin-bottom: 4rem;
-      animation: gentleIn 0.6s ease both;
-    }
-    .poem:last-child { margin-bottom: 2rem; }
-
-    @keyframes gentleIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
+    .poem { animation: settle 0.6s ease; }
+    @keyframes settle { from { opacity: 0; } to { opacity: 1; } }
 
     .poem-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2rem;
       font-weight: 400;
-      color: var(--ink);
-      line-height: 1.3;
-      margin-bottom: 0.15rem;
-    }
-    .poem-title a {
-      color: inherit;
-      text-decoration: none;
-      transition: color 0.25s;
-    }
-    .poem-title a:hover { color: var(--accent); }
-
-    .poem-date {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.78rem;
-      color: var(--ink-faint);
-      letter-spacing: 0.06em;
-      margin-bottom: 1.5rem;
-    }
-
-    .poem-body p {
-      margin-bottom: 1.4em;
-    }
-    .poem-body p:last-child { margin-bottom: 0; }
-
-    .poem-rule {
-      width: 3rem;
-      height: 1px;
-      background: var(--rule);
-      margin: 0 auto;
-      margin-top: 3rem;
-    }
-
-    /* ── Read more link ── */
-    .continue {
-      display: inline-block;
-      margin-top: 1rem;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.82rem;
-      color: var(--accent);
-      text-decoration: none;
-      letter-spacing: 0.08em;
-      cursor: pointer;
-      border: none;
-      background: none;
-      padding: 0;
-      transition: color 0.2s;
-    }
-    .continue:hover { color: var(--accent-hover); }
-
-    /* ── Back link ── */
-    .back-link {
-      display: inline-block;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.82rem;
-      color: var(--ink-faint);
-      text-decoration: none;
-      letter-spacing: 0.06em;
-      margin-bottom: 2.5rem;
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-    .back-link:hover { color: var(--ink); }
-
-    /* ── Archive ── */
-    .archive-season {
-      margin-bottom: 2.5rem;
-    }
-    .archive-season-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem;
-      font-weight: 300;
-      font-style: italic;
-      color: var(--ink-light);
-      padding-bottom: 0.6rem;
-      border-bottom: 1px solid var(--rule-light);
-      margin-bottom: 1rem;
-    }
-    .archive-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      padding: 0.45rem 0;
-      gap: 1rem;
-    }
-    .archive-item a {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem;
-      color: var(--ink);
-      text-decoration: none;
-      transition: color 0.2s;
-      flex: 1;
-    }
-    .archive-item a:hover { color: var(--accent); }
-    .archive-item time {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.78rem;
-      color: var(--ink-faint);
-      white-space: nowrap;
-      letter-spacing: 0.04em;
-    }
-
-    /* ── About ── */
-    .about-content {
-      font-size: 1rem;
-      line-height: 2;
-    }
-    .about-content p {
-      margin-bottom: 1.4em;
-    }
-    .about-content p:last-of-type { margin-bottom: 0; }
-
-    /* ── Page titles ── */
-    .page-heading {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem;
-      font-weight: 300;
-      color: var(--ink);
+      line-height: 1.25;
       margin-bottom: 2rem;
-      letter-spacing: 0.04em;
     }
 
-    /* ── Footer ── */
-    footer {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 2rem 0 3rem;
-      border-top: 1px solid var(--rule-light);
-      text-align: center;
-    }
-    .footer-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.78rem;
-      color: var(--ink-faint);
-      letter-spacing: 0.1em;
-    }
-    .footer-note {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 0.72rem;
-      font-style: italic;
-      color: var(--rule);
-      margin-top: 0.5rem;
+    .poem-body {
+      white-space: pre-wrap;   /* keeps your line breaks, stanza gaps and spacing exactly as written */
     }
 
-    /* ── Views (hidden by default) ── */
-    .view { display: none; }
-    .view.active { display: block; animation: gentleIn 0.5s ease; }
-
-    /* ── Responsive ── */
-    @media (max-width: 540px) {
-      .site-title { font-size: 2rem; }
-      nav { gap: 1.4rem; }
-      .poem-title { font-size: 1.3rem; }
-      .archive-item { flex-direction: column; gap: 0.15rem; }
+    .next {
+      display: inline-block;
+      margin-top: 2in;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.08em;
+      color: var(--ink-soft);
+      background: none;
+      border: none;
+      border-bottom: 1px solid transparent;
+      padding: 0 0 2px;
+      cursor: pointer;
+      transition: color 0.2s, border-color 0.2s;
     }
+    .next:hover, .next:focus-visible { color: var(--ink); border-bottom-color: var(--ink-soft); outline: none; }
   </style>
 </head>
 <body>
 
-  <header>
-    <a class="site-title" onclick="navigate('home')">falling spoon</a>
-    <p class="site-tagline">poems about pausing</p>
-    <nav id="main-nav">
-      <a onclick="navigate('home')" data-view="home">home</a>
-      <a onclick="navigate('archive')" data-view="archive">archives</a>
-      <a onclick="navigate('about')" data-view="about">about</a>
-    </nav>
-  </header>
-
-  <div class="divider"><span class="divider-ornament">·</span></div>
-
-  <main>
-    <!-- HOME -->
-    <div id="view-home" class="view active"></div>
-
-    <!-- SINGLE POEM -->
-    <div id="view-single" class="view"></div>
-
-    <!-- ARCHIVE -->
-    <div id="view-archive" class="view"></div>
-
-    <!-- ABOUT -->
-    <div id="view-about" class="view">
-      <h2 class="page-heading">about</h2>
-      <div class="about-content">
-        <p>My quiet contribution to a noisy place.</p>
-        <p>However you hear, read, or understand these writings I only ask that you do so with a spirit of love & care for yourself and others.</p>
-        <p>These poems & thoughts are open source. Please enjoy, print & share without restrictions.</p>
-        <p>Keep a pen handy. Have lots of paper around. Extras. Of both. Everywhere.</p>
-        <p>Thank you for joining me in slow mornings and an even slower enjoyment of the written word.</p>
-        <p style="margin-top: 2rem;"><a class="back-link" onclick="navigate('home')">← home</a></p>
-      </div>
-    </div>
-  </main>
-
-  <footer>
-    <div class="footer-text">falling spoon · <span id="footer-year"></span></div>
-    <div class="footer-note">poems about pausing</div>
-  </footer>
+<main>
+  <article class="poem" id="poem">
+    <h1 class="poem-title" id="title"></h1>
+    <div class="poem-body" id="body"></div>
+  </article>
+  <button class="next" id="next" type="button">next</button>
+</main>
 
 <script>
 // ═══════════════════════════════════════════════════════
-// SEASONS — Each writing season gets a name and range.
-// The newest season should be listed FIRST.
-// ═══════════════════════════════════════════════════════
-const SEASONS = [
-  {
-    id: 2,
-    label: 'Season II',
-    title: 'see the trees sway',
-    startDate: '2026-03-12',
-    endDate: null,            // null = ongoing
-  },
-  {
-    id: 1,
-    label: 'Season I',
-    title: 'sliding in the light',
-    startDate: '2026-02-18',
-    endDate: '2026-03-08',
-  }
-];
-
-// ═══════════════════════════════════════════════════════
-// POEMS — Newest first. Each poem belongs to a season.
-// To add a new poem: copy a block, paste at the TOP,
-// give it the next id, set the correct seasonId.
+// POEMS — newest at the TOP. The top poem is what readers
+// see first; "next" moves down the list, then loops back.
+//
+// To add a poem: paste a new block at the top, same as before.
+// (seasonId and date can stay — they're just not shown.)
 // ═══════════════════════════════════════════════════════
 const POEMS = [
   {
@@ -517,196 +207,24 @@ const POEMS = [
   },
 ];
 
+// ── Reading ─────────────────────────────────────────────
+let current = 0;
 
-
-// ── Utilities ──────────────────────────────────────────
-
-function esc(s) {
-  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function show(i) {
+  current = (i + POEMS.length) % POEMS.length;
+  const p = POEMS[current];
+  const article = document.getElementById('poem');
+  document.getElementById('title').textContent = p.title;
+  document.getElementById('body').textContent = p.body.replace(/^\n+|\n+$/g, '');
+  document.title = p.title;
+  article.style.animation = 'none'; void article.offsetWidth; article.style.animation = '';
+  window.scrollTo(0, 0);
 }
 
-function formatDate(iso) {
-  const d = new Date(iso);
-  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
-}
+document.getElementById('next').addEventListener('click', () => show(current + 1));
 
-function shortDate(iso) {
-  const d = new Date(iso);
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-}
-
-function renderPoem(text) {
-  let html = '';
-  const stanzas = text.split(/\n\n+/);
-  stanzas.forEach(s => {
-    s = s.trim();
-    if (!s) return;
-    html += '<p>' + esc(s).replace(/\n/g, '<br>') + '</p>';
-  });
-  return html;
-}
-
-function getSeasonForPoem(poem) {
-  return SEASONS.find(s => s.id === poem.seasonId);
-}
-
-function getPoemsForSeason(seasonId) {
-  return POEMS
-    .filter(p => p.seasonId === seasonId)
-    .sort((a, b) => new Date(b.date) - new Date(a.date));
-}
-
-
-// ── Navigation ─────────────────────────────────────────
-
-let currentView = 'home';
-
-function navigate(view, data) {
-  currentView = view;
-
-  // hide all views
-  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-
-  // update nav
-  document.querySelectorAll('#main-nav a').forEach(a => {
-    a.classList.toggle('active', a.dataset.view === view);
-  });
-
-  // show requested view
-  const el = document.getElementById('view-' + view);
-  if (view === 'single') {
-    document.getElementById('view-single').classList.add('active');
-  } else if (el) {
-    el.classList.add('active');
-  }
-
-  // render
-  switch (view) {
-    case 'home': renderHome(); break;
-    case 'single': renderSingle(data); break;
-    case 'archive': renderArchive(); break;
-    case 'about': break; // static
-  }
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-
-// ── Home: latest poem with season context ──────────────
-
-function renderHome() {
-  const el = document.getElementById('view-home');
-  const currentSeason = SEASONS[0];
-  const poems = getPoemsForSeason(currentSeason.id);
-  let html = '';
-
-  html += renderSeasonBanner(currentSeason);
-
-  if (poems.length > 0) {
-    html += renderPoemCard(poems[0], true);
-  } else {
-    // No poems in current season yet — show latest from previous
-    const prevSeason = SEASONS[1];
-    if (prevSeason) {
-      const prevPoems = getPoemsForSeason(prevSeason.id);
-      if (prevPoems.length > 0) {
-        html += `<div style="text-align:center;margin-bottom:2rem;">
-          <span class="season-label">${esc(prevSeason.label)} · ${esc(prevSeason.title)}</span>
-        </div>`;
-        html += renderPoemCard(prevPoems[0], true);
-      }
-    }
-  }
-
-  el.innerHTML = html;
-}
-
-function renderSeasonBanner(season) {
-  const start = shortDate(season.startDate);
-  const end = season.endDate ? shortDate(season.endDate) : 'present';
-  return `
-    <div class="season-header">
-      <div class="season-label">${esc(season.label)}</div>
-      <div class="season-title">${esc(season.title)}</div>
-      <div class="season-dates">${start} – ${end}</div>
-    </div>`;
-}
-
-function renderPoemCard(poem, full) {
-  return `
-    <article class="poem">
-      <h2 class="poem-title"><a onclick="navigate('single', ${poem.id})">${esc(poem.title)}</a></h2>
-      <div class="poem-date">${formatDate(poem.date)}</div>
-      <div class="poem-body">${renderPoem(poem.body)}</div>
-      <div class="poem-rule"></div>
-    </article>`;
-}
-
-
-// ── Single poem view ───────────────────────────────────
-
-function renderSingle(id) {
-  const poem = POEMS.find(p => p.id === id);
-  if (!poem) return;
-  const season = getSeasonForPoem(poem);
-  const el = document.getElementById('view-single');
-
-  // Find prev/next within same season
-  const seasonPoems = getPoemsForSeason(season.id);
-  const idx = seasonPoems.findIndex(p => p.id === id);
-  const prev = idx < seasonPoems.length - 1 ? seasonPoems[idx + 1] : null;
-  const next = idx > 0 ? seasonPoems[idx - 1] : null;
-
-  el.innerHTML = `
-    <a class="back-link" onclick="navigate('home')">← home</a>
-    <div style="text-align:center;margin-bottom:0.5rem;">
-      <span class="season-label">${esc(season.label)} · ${esc(season.title)}</span>
-    </div>
-    <article class="poem">
-      <h2 class="poem-title" style="text-align:center;">${esc(poem.title)}</h2>
-      <div class="poem-date" style="text-align:center;">${formatDate(poem.date)}</div>
-      <div class="poem-body">${renderPoem(poem.body)}</div>
-      <div class="poem-rule"></div>
-    </article>
-    <div style="display:flex;justify-content:space-between;margin-top:1rem;font-family:'Cormorant Garamond',serif;font-size:0.85rem;">
-      ${prev ? `<a class="back-link" onclick="navigate('single',${prev.id})" style="margin-bottom:0;">← ${esc(prev.title)}</a>` : '<span></span>'}
-      ${next ? `<a class="back-link" onclick="navigate('single',${next.id})" style="margin-bottom:0;">${esc(next.title)} →</a>` : '<span></span>'}
-    </div>`;
-}
-
-
-// ── Archive ────────────────────────────────────────────
-
-function renderArchive() {
-  const el = document.getElementById('view-archive');
-  let html = '<h2 class="page-heading">archives</h2>';
-
-  SEASONS.forEach(season => {
-    const poems = getPoemsForSeason(season.id);
-    html += `
-      <div class="archive-season">
-        <div class="archive-season-title">${esc(season.label)} — ${esc(season.title)}</div>`;
-    if (poems.length === 0) {
-      html += `<div style="color:var(--ink-faint);font-style:italic;font-size:0.9rem;padding:0.5rem 0;">poems arriving soon&hellip;</div>`;
-    }
-    poems.forEach(p => {
-      html += `
-        <div class="archive-item">
-          <a onclick="navigate('single',${p.id})">${esc(p.title)}</a>
-          <time>${shortDate(p.date)}</time>
-        </div>`;
-    });
-    html += '</div>';
-  });
-
-  el.innerHTML = html;
-}
-
-
-// ── Init ───────────────────────────────────────────────
-document.getElementById('footer-year').textContent = '© ' + new Date().getFullYear();
-navigate('home');
-
+if (POEMS.length) show(0);
+else document.getElementById('next').style.display = 'none';
 </script>
 </body>
 </html>
