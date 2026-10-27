@@ -1,0 +1,40 @@
+# Rebuilds the per-poem pages, archive, and sitemap whenever index.html
+# changes, then commits them. You don't need to do anything: just keep
+# adding poems to the POEMS list in index.html.
+name: Build poem pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - tools/build.mjs
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-poems
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node tools/build.mjs
+      - name: Commit generated pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add poems sitemap.xml
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "Rebuild poem pages"
+            git push
+          fi
