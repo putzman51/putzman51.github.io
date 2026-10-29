@@ -22,8 +22,8 @@ const SITE = 'https://fallingspoon.com';
 const AUTHOR = {
   '@type': 'Person',
   '@id': 'https://bobcorrigan.com/#person',
-  name: 'Robert Corrigan',
-  alternateName: 'Bob Corrigan',
+  name: 'Bob Corrigan',
+  alternateName: 'Robert Corrigan',
   url: 'https://bobcorrigan.com/',
 };
 
@@ -93,7 +93,7 @@ footer p+p{margin-top:.35rem}
 
 const FOOTER = `
 <footer>
-  <p>falling spoon is the poetry of Robert (Bob) Corrigan, an employer benefits professional, pro disc golfer, poet, and retro film photographer in Redmond, Washington, with two cats and a penchant for vintage RC models.</p>
+  <p>falling spoon is the poetry of Bob Corrigan, an employer benefits professional, pro disc golfer, poet, and retro film photographer in Redmond, Washington, with two cats and a penchant for vintage RC models.</p>
   <p><a href="https://bobcorrigan.com/">bobcorrigan.com</a> &nbsp;·&nbsp; <a href="https://secretvendingmachine.com/">secret vending machine</a> (film photography) &nbsp;·&nbsp; <a href="https://supfrog.com/">supfrog.com</a></p>
 </footer>`;
 
@@ -105,7 +105,7 @@ function page({ title, description, canonical, jsonld, ogType = 'article', body 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(description)}">
-  <meta name="author" content="Robert Corrigan">
+  <meta name="author" content="Bob Corrigan">
   <link rel="canonical" href="${canonical}">
   <meta property="og:type" content="${ogType}">
   <meta property="og:site_name" content="falling spoon">
@@ -135,7 +135,7 @@ fs.mkdirSync(outPoems, { recursive: true });
 POEMS.forEach((p, i) => {
   const newer = POEMS[i - 1];
   const older = POEMS[i + 1];
-  const desc = `“${p.title},” a poem by Robert Corrigan. ${excerpt(p.body, 120)}`;
+  const desc = `“${p.title},” a poem by Bob Corrigan. ${excerpt(p.body, 120)}`;
   const jsonld = {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
@@ -155,7 +155,7 @@ POEMS.forEach((p, i) => {
   <nav class="top"><a href="/">falling spoon</a> &nbsp;·&nbsp; <a href="/poems/">all poems</a></nav>
   <article>
     <h1>${esc(p.title)}</h1>
-    <p class="byline">by <a href="https://bobcorrigan.com/" rel="author">Robert Corrigan</a>${p.date ? ` &nbsp;·&nbsp; <time datetime="${isoDay(p.date)}">${prettyDate(p.date)}</time>` : ''}</p>
+    <p class="byline">by <a href="https://bobcorrigan.com/" rel="author">Bob Corrigan</a>${p.date ? ` &nbsp;·&nbsp; <time datetime="${isoDay(p.date)}">${prettyDate(p.date)}</time>` : ''}</p>
     <div class="poem-body">${esc(clean(p.body))}</div>
   </article>
   <nav class="pager">
@@ -166,7 +166,7 @@ POEMS.forEach((p, i) => {
   const dir = path.join(outPoems, p.slug);
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), page({
-    title: `${p.title} — a poem by Robert Corrigan | falling spoon`,
+    title: `${p.title} — a poem by Bob Corrigan | falling spoon`,
     description: desc,
     canonical: p.url,
     jsonld,
@@ -184,16 +184,16 @@ const archiveJsonld = {
   hasPart: POEMS.map((p) => ({ '@type': 'CreativeWork', genre: 'Poetry', name: p.title, url: p.url })),
 };
 fs.writeFileSync(path.join(outPoems, 'index.html'), page({
-  title: 'All poems by Robert Corrigan | falling spoon',
-  description: `Every poem on falling spoon, the poetry of Robert (Bob) Corrigan, a pro disc golfer, poet, and retro film photographer in Redmond, Washington. ${POEMS.length} poems, newest first.`,
+  title: 'All poems by Bob Corrigan | falling spoon',
+  description: `Every poem on falling spoon, the poetry of Bob Corrigan, a pro disc golfer, poet, and retro film photographer in Redmond, Washington. ${POEMS.length} poems, newest first.`,
   canonical: `${SITE}/poems/`,
   ogType: 'website',
   jsonld: archiveJsonld,
   body: `<main>
   <nav class="top"><a href="/">falling spoon</a></nav>
   <h1>all poems</h1>
-  <p class="byline">by <a href="https://bobcorrigan.com/" rel="author">Robert Corrigan</a></p>
-  <p class="intro">Poems by Robert (Bob) Corrigan, newest first. Also: <a href="/zine-march-2026.html"><em>sliding in the light</em></a>, a collection of twelve poems from early 2026.</p>
+  <p class="byline">by <a href="https://bobcorrigan.com/" rel="author">Bob Corrigan</a></p>
+  <p class="intro">Poems by Bob Corrigan, newest first. Also: <a href="/zine-march-2026.html"><em>sliding in the light</em></a>, a collection of twelve poems from early 2026.</p>
   <ul class="list">
 ${POEMS.map((p) => `    <li><a href="/poems/${p.slug}/">${esc(p.title)}</a>${p.date ? `<time datetime="${isoDay(p.date)}">${prettyDate(p.date)}</time>` : ''}</li>`).join('\n')}
   </ul>

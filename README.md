@@ -1,6 +1,6 @@
 # falling spoon
 
-Poems by Robert (Bob) Corrigan — https://fallingspoon.com
+Poems by Bob Corrigan — https://fallingspoon.com
 
 ## Adding a poem
 Paste a new block at the top of `POEMS` in `index.html`, same as always.
