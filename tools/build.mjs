@@ -93,7 +93,7 @@ footer p+p{margin-top:.35rem}
 
 const FOOTER = `
 <footer>
-  <p>falling spoon is the poetry of Robert (Bob) Corrigan, a poet, artist, and explorer of words in Redmond, Washington.</p>
+  <p>falling spoon is the poetry of Robert (Bob) Corrigan, an employer benefits professional, pro disc golfer, poet, and retro film photographer in Redmond, Washington, with two cats and a penchant for vintage RC models.</p>
   <p><a href="https://bobcorrigan.com/">bobcorrigan.com</a> &nbsp;·&nbsp; <a href="https://secretvendingmachine.com/">secret vending machine</a> (film photography) &nbsp;·&nbsp; <a href="https://supfrog.com/">supfrog.com</a></p>
 </footer>`;
 
@@ -185,7 +185,7 @@ const archiveJsonld = {
 };
 fs.writeFileSync(path.join(outPoems, 'index.html'), page({
   title: 'All poems by Robert Corrigan | falling spoon',
-  description: `Every poem on falling spoon, the poetry of Robert (Bob) Corrigan, a poet and artist in Redmond, Washington. ${POEMS.length} poems, newest first.`,
+  description: `Every poem on falling spoon, the poetry of Robert (Bob) Corrigan, a pro disc golfer, poet, and retro film photographer in Redmond, Washington. ${POEMS.length} poems, newest first.`,
   canonical: `${SITE}/poems/`,
   ogType: 'website',
   jsonld: archiveJsonld,
