@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>carried by the cold — thirteen poems by Bob Corrigan</title>
+<meta name="description" content="carried by the cold: a collection of thirteen poems by Bob Corrigan, written in the fall of 2026.">
+<meta name="author" content="Bob Corrigan">
+<link rel="canonical" href="https://fallingspoon.com/zine-november-2026.html">
+<meta property="og:type" content="book">
+<meta property="og:site_name" content="falling spoon">
+<meta property="og:title" content="carried by the cold — poems by Bob Corrigan">
+<meta property="og:description" content="Thirteen poems from fall 2026 by Bob Corrigan.">
+<meta property="og:url" content="https://fallingspoon.com/zine-november-2026.html">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CreativeWork", "genre": "Poetry", "name": "carried by the cold", "alternativeHeadline": "a collection of thirteen poems", "description": "Thirteen poems by Bob Corrigan written in the fall of 2026.", "datePublished": "2026-11", "url": "https://fallingspoon.com/zine-november-2026.html", "inLanguage": "en", "author": {"@type": "Person", "@id": "https://bobcorrigan.com/#person", "name": "Bob Corrigan", "alternateName": "Robert Corrigan", "url": "https://bobcorrigan.com/", "jobTitle": "Employer benefits professional"}, "isPartOf": {"@id": "https://fallingspoon.com/#website"}}</script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1713;
+    --ink-light: #4a4540;
+    --ink-faint: #9a9088;
+    --paper: #faf8f4;
+    --paper-warm: #f4f0e8;
+    --accent: #8b6f47;
+    --accent-light: #c4a882;
+  }
+
+  html { font-size: 16px; }
+
+  body {
+    background: #2a2520;
+    font-family: 'EB Garamond', Georgia, serif;
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem 4rem;
+  }
+
+  /* ── COVER ── */
+  #cover {
+    width: 100%;
+    max-width: 560px;
+    min-height: 100vh;
+    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3rem 3rem 3.5rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  #cover:hover { transform: translateY(-3px); }
+
+  .cover-texture {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(ellipse at 80% 20%, rgba(196,168,130,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 80%, rgba(139,111,71,0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .cover-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--accent);
+    margin-bottom: 2rem;
+  }
+
+  .cover-title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 4rem;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+  }
+
+  .cover-subtitle {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--ink-faint);
+    letter-spacing: 0.08em;
+    margin-bottom: 3rem;
+  }
+
+  .cover-year {
+    font-size: 0.8rem;
+    color: var(--accent-light);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .cover-hint {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 2rem;
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+    font-style: italic;
+  }
+
+  /* ── TABLE OF CONTENTS ── */
+  #toc {
+    width: 100%;
+    max-width: 560px;
+    background: var(--paper-warm);
+    padding: 3.5rem 3rem;
+    display: none;
+  }
+
+  .toc-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+  }
+
+  .toc-list {
+    list-style: none;
+  }
+
+  .toc-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid rgba(139,111,71,0.1);
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .toc-item:hover .toc-poem-title { color: var(--accent); }
+
+  .toc-num {
+    font-size: 0.7rem;
+    color: var(--accent-light);
+    min-width: 1.5rem;
+    font-style: italic;
+  }
+
+  .toc-poem-title {
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--ink);
+    transition: color 0.2s;
+    flex: 1;
+  }
+
+  /* ── POEM PAGES ── */
+  #poems-container { width: 100%; max-width: 560px; }
+  .poem-page {
+    width: 100%;
+    max-width: 560px;
+    background: var(--paper);
+    padding: 4rem 3rem 4rem;
+    display: none;
+    position: relative;
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .poem-number {
+    font-size: 0.7rem;
+    color: var(--accent-light);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 2.5rem;
+    display: block;
+  }
+
+  .poem-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--ink);
+    margin-bottom: 2.5rem;
+    line-height: 1.3;
+  }
+
+  .poem-body {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+
+  .stanza {
+    margin-bottom: 1.4em;
+  }
+
+  .stanza:last-child { margin-bottom: 0; }
+
+  .poem-line {
+    display: block;
+    line-height: 1.7;
+  }
+
+  .poem-line.indent { padding-left: 1.5em; }
+
+  .section-label {
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.8em;
+    display: block;
+    font-style: normal;
+  }
+
+  /* ── NAV ── */
+  .nav-bar {
+    width: 100%;
+    max-width: 560px;
+    background: var(--paper-warm);
+    border-top: 1px solid rgba(139,111,71,0.15);
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+  }
+
+  .nav-bar.visible { display: flex; }
+
+  .nav-btn {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--accent);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.4rem 0;
+    transition: color 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-btn:hover { color: var(--ink); }
+  .nav-btn:disabled { color: var(--ink-faint); cursor: default; }
+
+  .nav-counter {
+    font-size: 0.75rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── COLOPHON ── */
+  #colophon {
+    width: 100%;
+    max-width: 560px;
+    background: var(--paper);
+    padding: 4rem 3rem;
+    display: none;
+    text-align: center;
+  }
+
+  .colophon-rule {
+    width: 30px;
+    height: 1px;
+    background: var(--accent-light);
+    margin: 0 auto 2rem;
+  }
+
+  .colophon-text {
+    font-size: 0.9rem;
+    font-style: italic;
+    color: var(--ink-faint);
+    line-height: 1.8;
+  }
+
+  .colophon-site {
+    display: inline-block;
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent-light);
+    padding-bottom: 1px;
+  }
+
+  .back-to-cover {
+    display: block;
+    margin-top: 2.5rem;
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    cursor: pointer;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    font-family: 'EB Garamond', serif;
+    transition: color 0.2s;
+  }
+
+  .back-to-cover:hover { color: var(--accent); }
+
+  /* progress dots */
+  .progress {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent-light);
+    opacity: 0.3;
+    transition: opacity 0.2s;
+  }
+
+  .dot.active { opacity: 1; background: var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div id="cover" onclick="showTOC()">
+  <div class="cover-texture"></div>
+  <div class="cover-rule"></div>
+  <h1 class="cover-title">carried by<br>the cold.</h1>
+  <p class="cover-subtitle">a collection &nbsp;·&nbsp; 2026</p>
+  <p class="cover-year">thirteen poems</p>
+  <span class="cover-hint">open →</span>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div id="toc">
+  <p class="toc-heading">Contents</p>
+  <ul class="toc-list" id="toc-list"></ul>
+</div>
+
+<!-- POEM PAGES (generated by JS) -->
+<div id="poems-container"></div>
+
+<!-- NAV BAR -->
+<div class="nav-bar" id="nav-bar">
+  <button class="nav-btn" id="prev-btn" onclick="navigate(-1)">← prev</button>
+  <div class="progress" id="progress-dots"></div>
+  <button class="nav-btn" id="next-btn" onclick="navigate(1)">next →</button>
+</div>
+
+<!-- COLOPHON -->
+<div id="colophon">
+  <div class="colophon-rule"></div>
+  <p class="colophon-text">
+    These poems were written in the fall of 2026,<br>
+    from late October into November.
+  </p>
+  <a class="colophon-site" href="https://fallingspoon.com" target="_blank">fallingspoon.com</a>
+  <button class="back-to-cover" onclick="showCover()">return to cover</button>
+</div>
+
+<script>
+const poems = [
+  {
+    "title": "they are not hiding once found out",
+    "stanzas": [
+      [
+        "a hazy upstairs vestibule",
+        "an intruder looking around",
+        "ruffling, rifling",
+        "through a drawer, glibly",
+        "though seeking more than",
+        "information, it's really just the",
+        "excitement of the hunt"
+      ],
+      [
+        "the breaking in was one",
+        "part",
+        "yay. exciting."
+      ],
+      [
+        "being found was the whole point.",
+        "being seen, even through a hazy dream",
+        "where the intruder is really there,",
+        "but they know it's a dream and",
+        "I don't yet."
+      ],
+      [
+        "hiding. scanning, looking, seeking",
+        "“when are they going to notice me”",
+        "so, I call out."
+      ],
+      [
+        "“hey!” they answer, calling back",
+        "when hollered to",
+        "from atop the stairs."
+      ],
+      [
+        "wanting to be caught but",
+        "still fighting back once",
+        "the righteous are willing",
+        "to remove."
+      ],
+      [
+        "stifled screams from their",
+        "fear of what might be."
+      ],
+      [
+        "strength is summoned and the",
+        "fight feels more like a cuddle",
+        "because it's just a haze."
+      ],
+      [
+        "they really just wanted to cuddle."
+      ]
+    ]
+  },
+  {
+    "title": "there's a balloon",
+    "stanzas": [
+      [
+        "there's air, a push of",
+        "a breathy kiss",
+        "coming from the side and",
+        "pushing an apex",
+        "across the top of the",
+        "lake. not a wave",
+        "but like a little mountain with",
+        "a glacier, a snowy cap",
+        "on the undulating",
+        "peak."
+      ],
+      [
+        "there's lift, a pencil being",
+        "seen, felt, and",
+        "experienced for what it really is.",
+        "the writer knows this pencil",
+        "will cure the soul.",
+        "the reader never saw the pencil, but",
+        "the graphite shavings were",
+        "still felt."
+      ],
+      [
+        "still, outside there's dirt. it's never really",
+        "imposing, you don't have to",
+        "engage. but this dirt is yours.",
+        "The one god-given right to get",
+        "dirty. it's your dirt."
+      ],
+      [
+        "the balloon might bust, but",
+        "it usually doesn't.",
+        "the helium might help it get",
+        "trapped in the rafters,",
+        "bumping up against each ceiling",
+        "tile. greying and yellowed light",
+        "taking its time to enter",
+        "into the middle of the ball.",
+        "the air, somewhat stale, getting",
+        "pushed. in a much more simple",
+        "fashion than back at the lake."
+      ],
+      [
+        "a slight arc, escaping behind",
+        "as it moves like a blimp, unimposing",
+        "but looming like a ghoul."
+      ]
+    ]
+  },
+  {
+    "title": "lip",
+    "stanzas": [
+      [
+        "pushing, falling",
+        "over, into"
+      ],
+      [
+        "from flat to steep",
+        "decline."
+      ],
+      [
+        "the grit and drop",
+        "in my stomach",
+        "like a roller coaster",
+        "but never any wait"
+      ],
+      [
+        "or"
+      ],
+      [
+        "standing in line."
+      ]
+    ]
+  },
+  {
+    "title": "it's enough",
+    "stanzas": [
+      [
+        "to sit and wait",
+        "through",
+        "each idea and dream."
+      ],
+      [
+        "frizzled bands of",
+        "counted claims, speckled with a",
+        "chromatic silken",
+        "and sparkled silt."
+      ],
+      [
+        "evaporating each time you",
+        "blink."
+      ],
+      [
+        "if you thought the fairness",
+        "would settle your",
+        "stomach,",
+        "think again,",
+        "it's really a stomach that",
+        "keeps you from seeing",
+        "anything fair."
+      ],
+      [
+        "the time it takes to breathe",
+        "is the life you have left",
+        "at any given",
+        "spark."
+      ]
+    ]
+  },
+  {
+    "title": "taking",
+    "stanzas": [
+      [
+        "the tip of each toe,",
+        "the grain of salt falling below."
+      ],
+      [
+        "a wince when the sailor smoked",
+        "again when he found the shore."
+      ],
+      [
+        "it's still okay to find solace",
+        "in meaning and the",
+        "cleansing search within."
+      ],
+      [
+        "whenever you actually take the time",
+        "to try,",
+        "anything. once."
+      ],
+      [
+        "it's fine to say no."
+      ],
+      [
+        "the link between the finite and",
+        "the immediate vacuum above is",
+        "just breath."
+      ],
+      [
+        "our air,",
+        "it's just the blanket from",
+        "melting, popping, and",
+        "exploding. it's just the soul itself:"
+      ],
+      [
+        "separate."
+      ],
+      [
+        "connected."
+      ]
+    ]
+  },
+  {
+    "title": "screened in",
+    "stanzas": [
+      [
+        "trusting the amount of",
+        "scrutiny that goes into",
+        "choosing one true green."
+      ],
+      [
+        "the shades are going from",
+        "“forest on fire” to",
+        "“money you lost at 15”",
+        "and back to",
+        "“broccoli farmers’ weathered",
+        "hands”"
+      ],
+      [
+        "and you just need",
+        "“time to enjoy Christmas morning",
+        "without all the fuss but the same",
+        "energy as the day the tree arrived",
+        "and the gift you gave them actually",
+        "landed, and it wasn’t you just",
+        "projecting”"
+      ],
+      [
+        "so you wind up with “tea green supreme”",
+        "and call it a day."
+      ],
+      [
+        "It’s never the exact right tone, and",
+        "you will learn to love the reckless",
+        "thoughts that float through",
+        "as the floorboards absorb",
+        "a little runoff."
+      ]
+    ]
+  },
+  {
+    "title": "a flail",
+    "stanzas": [
+      [
+        "placement in",
+        "a state of mind that",
+        "produces the simple",
+        "treasure of slick",
+        "ribbons"
+      ],
+      [
+        "tied inside and",
+        "whipping the wind",
+        "flapping and",
+        "sometimes finding a",
+        "groove and getting",
+        "caught"
+      ],
+      [
+        "clouds are making",
+        "darkness and damp",
+        "sidewalks are not keeping",
+        "the ribbons dry."
+      ],
+      [
+        "it's, a fight."
+      ],
+      [
+        "the strands are",
+        "unraveling and the",
+        "fray is now showing",
+        "multiples of what was."
+      ]
+    ]
+  },
+  {
+    "title": "shadow engulfed me",
+    "stanzas": [
+      [
+        "the smallest amount of time",
+        "soaking in the darkness",
+        "bending light",
+        "from angles unknown to me",
+        "the plants performed and",
+        "the birds migrated silently as",
+        "we all remained fawning",
+        "over an inkling of",
+        "celestial trance."
+      ]
+    ]
+  },
+  {
+    "title": "flapping as the speed increases",
+    "stanzas": [
+      [
+        "sitting on one side",
+        "the length extends past the",
+        "point of barely being",
+        "noticed."
+      ],
+      [
+        "curled in a way,",
+        "that seems accidental."
+      ],
+      [
+        "timed with the trees,",
+        "and taking each pocket of",
+        "the vacuum and",
+        "pushing back when the",
+        "breeze increases."
+      ],
+      [
+        "unraveling, aging, a",
+        "patina of intention."
+      ],
+      [
+        "keeping pace with the",
+        "letter of the law."
+      ],
+      [
+        "letting mathematics become the",
+        "end result."
+      ],
+      [
+        "every variable giving a ribbon",
+        "of attrition. tied together",
+        "by every thought."
+      ],
+      [
+        "singing a song of tapping."
+      ]
+    ]
+  },
+  {
+    "title": "a cold curling wind",
+    "stanzas": [
+      [
+        "tall, thick, lopsided blades of grass",
+        "coastal refuge"
+      ],
+      [
+        "a breeze that wouldn’t stop",
+        "unless the waves told the wind",
+        "“hey you, stop it for a second.”",
+        "knowing the waves won’t",
+        "stop",
+        "a pulsing wind pulls a",
+        "cloud past the",
+        "shore.",
+        "a crisp, chilled skin tone",
+        "kissed with red, drying",
+        "from the surface, a wetness",
+        "in the air, staying still.",
+        "rocks growing colder and",
+        "all that makes sense",
+        "is seeing sunshine and",
+        "skipping in storms.",
+        "sun still works when it’s",
+        "behind something, when it",
+        "wants to give you a break, when",
+        "a ray of it pokes holes in the weather.",
+        "cold wind whipping, sun rays",
+        "sifting through time, pushing",
+        "each wave while the timeless",
+        "grass says goodbye."
+      ]
+    ]
+  },
+  {
+    "title": "bright, spilled, and skillful",
+    "stanzas": [
+      [
+        "clouds and mist",
+        "sifted. tree top",
+        "filtered.",
+        "green climbing up into",
+        "the air thinned out by",
+        "mountain breadth."
+      ],
+      [
+        "eyes capture what the mind",
+        "needs and knows the",
+        "hourglass can forget. so",
+        "the reverence must be made",
+        "prominent. in this exact second."
+      ],
+      [
+        "fleeting like a flock of heron",
+        "floating with necks long. crying",
+        "out as they fly saying “we know",
+        "where we go”"
+      ],
+      [
+        "the darting sun, taking timber",
+        "slowly upward."
+      ],
+      [
+        "puzzled deer trying to hop",
+        "past while learning to trot."
+      ],
+      [
+        "enough air for the day. let’s",
+        "get inside."
+      ],
+      [
+        "starting to feel the next state over,",
+        "the wind carrying leaves from miles",
+        "to the west."
+      ],
+      [
+        "the puddles start to look like you",
+        "can pick them up with one hand."
+      ],
+      [
+        "the moment is now for the rain is coming",
+        "and going depending on how you made your",
+        "move."
+      ],
+      [
+        "enough tromping around in these boots."
+      ]
+    ]
+  },
+  {
+    "title": "air, lightly crisp",
+    "stanzas": [
+      [
+        "like just before snow",
+        "pressure removed and",
+        "almost warm with no breeze",
+        "wet walkways, silence somehow."
+      ],
+      [
+        "a gift, magical moments of",
+        "suspense, it’s absolutely going",
+        "to snow."
+      ],
+      [
+        "the trees are ready for it",
+        "they don’t",
+        "shudder,",
+        "they welcome the newly",
+        "fallen blanket, giving the",
+        "neighbors a reason to",
+        "smile. They look across the",
+        "way and beam a peaceful",
+        "gaze because, the",
+        "pressure: removed."
+      ]
+    ]
+  },
+  {
+    "title": "welcome to my dust collection",
+    "stanzas": [
+      [
+        "the breath. it moves dust,",
+        "creates it, combining",
+        "everything I shed."
+      ],
+      [
+        "fine clumps finding other",
+        "bunches of fuzzy",
+        "investments, of time",
+        "of life, progress is made",
+        "with dust."
+      ],
+      [
+        "letting it gather",
+        "seeing its stale grey hue",
+        "giving off an essence of",
+        "insecure involvement.",
+        "as in, “maybe I’m here for you",
+        "to see moments move with",
+        "milestones.”"
+      ],
+      [
+        "it’s not a pest.",
+        "it’s not a chore.",
+        "it’s the hourglass and the sand",
+        "not trapped inside, but glittered",
+        "around us like a snowglobe going",
+        "nuts."
+      ]
+    ]
+  }
+];
+
+let currentPage = -1; // -1 = cover, -2 = toc, poems 0..n, n+1 = colophon
+const total = poems.length;
+
+function renderStanzas(stanzas) {
+  return stanzas.map(lines => {
+    const div = document.createElement('div');
+    div.className = 'stanza';
+    lines.forEach(l => {
+      const span = document.createElement('span');
+      span.className = 'poem-line';
+      span.textContent = l;
+      div.appendChild(span);
+    });
+    return div;
+  });
+}
+
+function buildPoems() {
+  const container = document.getElementById('poems-container');
+  const tocList = document.getElementById('toc-list');
+
+  poems.forEach((poem, i) => {
+    // TOC entry
+    const li = document.createElement('li');
+    li.className = 'toc-item';
+    li.innerHTML = `<span class="toc-num">${String(i+1).padStart(2,'0')}</span><span class="toc-poem-title">${poem.title}</span>`;
+    li.onclick = () => showPoem(i);
+    tocList.appendChild(li);
+
+    // Poem page
+    const page = document.createElement('div');
+    page.className = 'poem-page';
+    page.id = `poem-${i}`;
+
+    const numSpan = document.createElement('span');
+    numSpan.className = 'poem-number';
+    numSpan.textContent = `${String(i+1).padStart(2,'0')} / ${String(total).padStart(2,'0')}`;
+    page.appendChild(numSpan);
+
+    const titleEl = document.createElement('h2');
+    titleEl.className = 'poem-title';
+    titleEl.textContent = poem.title;
+    page.appendChild(titleEl);
+
+    const body = document.createElement('div');
+    body.className = 'poem-body';
+
+    if (poem.sections) {
+      poem.sections.forEach(sec => {
+        const labelEl = document.createElement('span');
+        labelEl.className = 'section-label';
+        labelEl.textContent = sec.label;
+        body.appendChild(labelEl);
+        renderStanzas(sec.stanzas).forEach(s => body.appendChild(s));
+        const spacer = document.createElement('div');
+        spacer.style.height = '1.2em';
+        body.appendChild(spacer);
+      });
+    } else {
+      renderStanzas(poem.stanzas).forEach(s => body.appendChild(s));
+    }
+
+    page.appendChild(body);
+    container.appendChild(page);
+  });
+
+  // Build progress dots
+  const dots = document.getElementById('progress-dots');
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot';
+    d.id = `dot-${i}`;
+    dots.appendChild(d);
+  }
+}
+
+function hideAll() {
+  document.getElementById('cover').style.display = 'none';
+  document.getElementById('toc').style.display = 'none';
+  document.querySelectorAll('.poem-page').forEach(p => p.style.display = 'none');
+  document.getElementById('colophon').style.display = 'none';
+  document.getElementById('nav-bar').classList.remove('visible');
+  document.querySelectorAll('.dot').forEach(d => d.classList.remove('active'));
+}
+
+function showCover() {
+  hideAll();
+  document.getElementById('cover').style.display = 'flex';
+  currentPage = -1;
+  window.scrollTo(0,0);
+}
+
+function showTOC() {
+  hideAll();
+  document.getElementById('toc').style.display = 'block';
+  currentPage = -2;
+  window.scrollTo(0,0);
+}
+
+function showPoem(i) {
+  hideAll();
+  const page = document.getElementById(`poem-${i}`);
+  page.style.display = 'block';
+  document.getElementById('nav-bar').classList.add('visible');
+  const dot = document.getElementById(`dot-${i}`);
+  if (dot) dot.classList.add('active');
+  currentPage = i;
+
+  const prev = document.getElementById('prev-btn');
+  const next = document.getElementById('next-btn');
+  prev.disabled = false;
+  next.disabled = false;
+  prev.textContent = i === 0 ? '← contents' : '← prev';
+  next.textContent = i === total - 1 ? 'end →' : 'next →';
+
+  window.scrollTo(0,0);
+}
+
+function showColophon() {
+  hideAll();
+  document.getElementById('colophon').style.display = 'block';
+  document.getElementById('nav-bar').classList.add('visible');
+  const prev = document.getElementById('prev-btn');
+  const next = document.getElementById('next-btn');
+  prev.disabled = false;
+  prev.textContent = '← prev';
+  next.disabled = true;
+  next.textContent = '·';
+  currentPage = total;
+  window.scrollTo(0,0);
+}
+
+function navigate(dir) {
+  if (currentPage === -2) {
+    if (dir === 1) showPoem(0);
+    return;
+  }
+  const next = currentPage + dir;
+  if (next < 0) { showTOC(); return; }
+  if (next >= total) { showColophon(); return; }
+  showPoem(next);
+}
+
+buildPoems();
+showCover();
+</script>
+</body>
+</html>

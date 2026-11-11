@@ -193,7 +193,7 @@ fs.writeFileSync(path.join(outPoems, 'index.html'), page({
   <nav class="top"><a href="/">falling spoon</a></nav>
   <h1>all poems</h1>
   <p class="byline">by <a href="https://bobcorrigan.com/" rel="author">Bob Corrigan</a></p>
-  <p class="intro">Poems by Bob Corrigan, newest first. Also: <a href="/zine-march-2026.html"><em>sliding in the light</em></a>, a collection of twelve poems from early 2026.</p>
+  <p class="intro">Poems by Bob Corrigan, newest first. Also: <a href="/zine-november-2026.html"><em>carried by the cold</em></a>, poems from fall 2026, and <a href="/zine-march-2026.html"><em>sliding in the light</em></a>, a collection of twelve poems from early 2026.</p>
   <ul class="list">
 ${POEMS.map((p) => `    <li><a href="/poems/${p.slug}/">${esc(p.title)}</a>${p.date ? `<time datetime="${isoDay(p.date)}">${prettyDate(p.date)}</time>` : ''}</li>`).join('\n')}
   </ul>
@@ -205,6 +205,7 @@ const newest = isoDay(POEMS[0]?.date);
 const urls = [
   { loc: `${SITE}/`, lastmod: newest },
   { loc: `${SITE}/poems/`, lastmod: newest },
+  { loc: `${SITE}/zine-november-2026.html` },
   { loc: `${SITE}/zine-march-2026.html` },
   ...POEMS.map((p) => ({ loc: p.url, lastmod: isoDay(p.date) })),
 ];
